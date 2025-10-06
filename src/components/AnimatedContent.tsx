@@ -1,22 +1,23 @@
-import React, { useRef, useEffect, ReactNode } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef, useEffect } from 'react'
+import type { ReactNode } from 'react' // ✅ type-only import
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
 interface AnimatedContentProps {
-  children: ReactNode;
-  distance?: number;
-  direction?: 'vertical' | 'horizontal';
-  reverse?: boolean;
-  duration?: number;
-  ease?: string | ((progress: number) => number);
-  initialOpacity?: number;
-  animateOpacity?: boolean;
-  scale?: number;
-  threshold?: number;
-  delay?: number;
-  onComplete?: () => void;
+  children: ReactNode
+  distance?: number
+  direction?: 'vertical' | 'horizontal'
+  reverse?: boolean
+  duration?: number
+  ease?: string | ((progress: number) => number)
+  initialOpacity?: number
+  animateOpacity?: boolean
+  scale?: number
+  threshold?: number
+  delay?: number
+  onComplete?: () => void
 }
 
 const AnimatedContent: React.FC<AnimatedContentProps> = ({
@@ -31,23 +32,23 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
   scale = 1,
   threshold = 0.1,
   delay = 0,
-  onComplete
+  onComplete,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current
+    if (!el) return
 
-    const axis = direction === 'horizontal' ? 'x' : 'y';
-    const offset = reverse ? -distance : distance;
-    const startPct = (1 - threshold) * 100;
+    const axis = direction === 'horizontal' ? 'x' : 'y'
+    const offset = reverse ? -distance : distance
+    const startPct = (1 - threshold) * 100
 
     gsap.set(el, {
       [axis]: offset,
       scale,
-      opacity: animateOpacity ? initialOpacity : 1
-    });
+      opacity: animateOpacity ? initialOpacity : 1,
+    })
 
     gsap.to(el, {
       [axis]: 0,
@@ -61,14 +62,14 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
         trigger: el,
         start: `top ${startPct}%`,
         toggleActions: 'play none none none',
-        once: true
-      }
-    });
+        once: true,
+      },
+    })
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-      gsap.killTweensOf(el);
-    };
+      ScrollTrigger.getAll().forEach((t) => t.kill())
+      gsap.killTweensOf(el)
+    }
   }, [
     distance,
     direction,
@@ -80,10 +81,10 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
     scale,
     threshold,
     delay,
-    onComplete
-  ]);
+    onComplete,
+  ])
 
-  return <div ref={ref}>{children}</div>;
-};
+  return <div ref={ref}>{children}</div>
+}
 
-export default AnimatedContent;
+export default AnimatedContent
