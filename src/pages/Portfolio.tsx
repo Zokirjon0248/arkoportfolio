@@ -2,8 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import Demo from "@/components/GalleryData";
 import WhyWorkWithMe from "@/components/WhyWorkWithMe";
 // CountUp komponenti
-function CountUp({ end, suffix = '', decimals = 0 }) {
-  const [count, setCount] = useState(0);
+interface CountUpProps {
+  end: number;
+  suffix?: string;
+  decimals?: number;
+}
+function CountUp({ end, suffix = '', decimals = 0 }: CountUpProps) {
+  const [count, setCount] = useState<number>(0);
+
   
   useEffect(() => {
     let start = 0;
@@ -25,9 +31,11 @@ function CountUp({ end, suffix = '', decimals = 0 }) {
   
   return <>{count.toFixed(decimals)}{suffix}</>;
 }
-
+interface ModernCarouselProps {
+  images: string[];
+}
 // Modern Carousel komponenti
-function ModernCarousel({ images }) {
+function ModernCarousel({ images }: ModernCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [slidesPerView, setSlidesPerView] = useState(4);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -51,13 +59,13 @@ function ModernCarousel({ images }) {
     return () => window.removeEventListener("resize", updateSlidesPerView);
   }, []);
 
-  // Autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [current, slidesPerView]);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrent(prev => (prev + 1) % images.length);
+  }, 2500);
+
+  return () => clearInterval(interval);
+}, [images.length]); // faqat images.length ga bog‘liq
 
   const handleNext = () => {
     if (isTransitioning) return;
@@ -73,7 +81,7 @@ function ModernCarousel({ images }) {
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: any) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
@@ -81,11 +89,11 @@ function ModernCarousel({ images }) {
   };
 
   // Touch handlers
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: any) => {
     setTouchStart(e.touches[0].clientX);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: any) => {
     setTouchEnd(e.touches[0].clientX);
   };
 
@@ -113,7 +121,7 @@ function ModernCarousel({ images }) {
   const currentPage = Math.floor(current / slidesPerView) % totalPages;
 
   // Lightbox functions
-  const openLightbox = (index) => {
+  const openLightbox = (index: any) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
@@ -136,7 +144,7 @@ function ModernCarousel({ images }) {
   useEffect(() => {
     if (!lightboxOpen) return;
     
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e : any) => {
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextLightbox();
       if (e.key === 'ArrowLeft') prevLightbox();
@@ -160,7 +168,7 @@ function ModernCarousel({ images }) {
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${(current % slidesPerView) * (100 / slidesPerView)}%)` }}
         >
-          {images.concat(images.slice(0, slidesPerView)).map((src, idx) => (
+          {images.concat(images.slice(0, slidesPerView)).map((src: any, idx: any) => (
             <div
               key={idx}
               className="flex-shrink-0 px-2"
