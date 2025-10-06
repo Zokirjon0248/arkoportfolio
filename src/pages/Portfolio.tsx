@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Demo from "@/components/GalleryData";
 import WhyWorkWithMe from "@/components/WhyWorkWithMe";
+
 // CountUp komponenti
 interface CountUpProps {
   end: number;
@@ -10,12 +11,11 @@ interface CountUpProps {
 function CountUp({ end, suffix = '', decimals = 0 }: CountUpProps) {
   const [count, setCount] = useState<number>(0);
 
-  
   useEffect(() => {
     let start = 0;
     const duration = 2000;
     const increment = end / (duration / 16);
-    
+
     const timer = setInterval(() => {
       start += increment;
       if (start >= end) {
@@ -25,16 +25,17 @@ function CountUp({ end, suffix = '', decimals = 0 }: CountUpProps) {
         setCount(start);
       }
     }, 16);
-    
+
     return () => clearInterval(timer);
   }, [end]);
-  
+
   return <>{count.toFixed(decimals)}{suffix}</>;
 }
+
+// Modern Carousel komponenti
 interface ModernCarouselProps {
   images: string[];
 }
-// Modern Carousel komponenti
 function ModernCarousel({ images }: ModernCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [slidesPerView, setSlidesPerView] = useState(4);
@@ -43,7 +44,7 @@ function ModernCarousel({ images }: ModernCarouselProps) {
   const [touchEnd, setTouchEnd] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Responsive slides per view
   useEffect(() => {
@@ -53,19 +54,18 @@ function ModernCarousel({ images }: ModernCarouselProps) {
       else if (window.innerWidth < 1024) setSlidesPerView(3);
       else setSlidesPerView(4);
     };
-
     updateSlidesPerView();
     window.addEventListener("resize", updateSlidesPerView);
     return () => window.removeEventListener("resize", updateSlidesPerView);
   }, []);
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCurrent(prev => (prev + 1) % images.length);
-  }, 2500);
-
-  return () => clearInterval(interval);
-}, [images.length]); // faqat images.length ga bog‘liq
+  // Auto slide
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const handleNext = () => {
     if (isTransitioning) return;
@@ -81,7 +81,7 @@ useEffect(() => {
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  const goToSlide = (index: any) => {
+  const goToSlide = (index: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
@@ -89,70 +89,39 @@ useEffect(() => {
   };
 
   // Touch handlers
-  const handleTouchStart = (e: any) => {
-    setTouchStart(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: any) => {
-    setTouchEnd(e.touches[0].clientX);
-  };
-
+  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.touches[0].clientX);
+  const handleTouchMove = (e: React.TouchEvent) => setTouchEnd(e.touches[0].clientX);
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
-      handleNext();
-    }
-    if (touchStart - touchEnd < -50) {
-      handlePrev();
-    }
+    if (touchStart - touchEnd > 50) handleNext();
+    if (touchStart - touchEnd < -50) handlePrev();
   };
-
-  // Calculate visible slides
-  const getVisibleSlides = () => {
-    const slides = [];
-    for (let i = 0; i < slidesPerView; i++) {
-      const index = (current + i) % images.length;
-      slides.push(images[index]);
-    }
-    return slides;
-  };
-
-  const visibleSlides = getVisibleSlides();
-  const totalPages = Math.ceil(images.length / slidesPerView);
-  const currentPage = Math.floor(current / slidesPerView) % totalPages;
 
   // Lightbox functions
-  const openLightbox = (index: any) => {
+  const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
   };
-
   const closeLightbox = () => {
     setLightboxOpen(false);
     document.body.style.overflow = 'auto';
   };
+  const nextLightbox = () => setLightboxIndex((prev) => (prev + 1) % images.length);
+  const prevLightbox = () => setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
 
-  const nextLightbox = () => {
-    setLightboxIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevLightbox = () => {
-    setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  // Keyboard navigation for lightbox
   useEffect(() => {
     if (!lightboxOpen) return;
-    
-    const handleKeyDown = (e : any) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextLightbox();
       if (e.key === 'ArrowLeft') prevLightbox();
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxOpen, lightboxIndex]);
+  }, [lightboxOpen]);
+
+  const totalPages = Math.ceil(images.length / slidesPerView);
+  const currentPage = Math.floor(current / slidesPerView) % totalPages;
 
   return (
     <div className="relative w-full">
@@ -168,16 +137,9 @@ useEffect(() => {
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${(current % slidesPerView) * (100 / slidesPerView)}%)` }}
         >
-          {images.concat(images.slice(0, slidesPerView)).map((src: any, idx: any) => (
-            <div
-              key={idx}
-              className="flex-shrink-0 px-2"
-              style={{ width: `${100 / slidesPerView}%` }}
-            >
-              <div 
-                className="group relative overflow-hidden rounded-lg cursor-pointer"
-                onClick={() => openLightbox(idx % images.length)}
-              >
+          {images.concat(images.slice(0, slidesPerView)).map((src, idx) => (
+            <div key={idx} className="flex-shrink-0 px-2" style={{ width: `${100 / slidesPerView}%` }}>
+              <div className="group relative overflow-hidden rounded-lg cursor-pointer" onClick={() => openLightbox(idx % images.length)}>
                 <img
                   src={src}
                   alt={`Portfolio ${idx + 1}`}
@@ -195,21 +157,12 @@ useEffect(() => {
       </div>
 
       {/* Navigation Buttons */}
-      <button
-        onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10"
-        aria-label="Previous"
-      >
+      <button onClick={handlePrev} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10">
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-
-      <button
-        onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10"
-        aria-label="Next"
-      >
+      <button onClick={handleNext} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10">
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
@@ -222,73 +175,33 @@ useEffect(() => {
             key={idx}
             onClick={() => goToSlide(idx * slidesPerView)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              currentPage === idx
-                ? 'bg-gradient-to-r from-blue-400 to-purple-400 w-8'
-                : 'bg-white/30 hover:bg-white/50'
+              currentPage === idx ? 'bg-gradient-to-r from-blue-400 to-purple-400 w-8' : 'bg-white/30 hover:bg-white/50'
             }`}
-            aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
       </div>
 
       {/* Lightbox Modal */}
       {lightboxOpen && (
-        <div 
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-          onClick={closeLightbox}
-        >
-          {/* Close Button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10"
-            aria-label="Close"
-          >
+        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4" onClick={closeLightbox}>
+          <button onClick={closeLightbox} className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-
-          {/* Previous Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              prevLightbox();
-            }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10"
-            aria-label="Previous"
-          >
+          <button onClick={(e) => { e.stopPropagation(); prevLightbox(); }} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-
-          {/* Next Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              nextLightbox();
-            }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10"
-            aria-label="Next"
-          >
+          <button onClick={(e) => { e.stopPropagation(); nextLightbox(); }} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-10">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-
-          {/* Image Container */}
-          <div 
-            className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={images[lightboxIndex]}
-              alt={`Portfolio ${lightboxIndex + 1}`}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-            />
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img src={images[lightboxIndex]} alt={`Portfolio ${lightboxIndex + 1}`} className="max-w-full max-h-full object-contain rounded-lg shadow-2xl" />
           </div>
-
-          {/* Image Counter */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm">
             {lightboxIndex + 1} / {images.length}
           </div>
@@ -306,12 +219,6 @@ const imageLogos = [
   "https://i.ibb.co/vxr8pCV7/grup1-5.jpg",
   "https://i.ibb.co/FbCgcD31/grup2-2.jpg",
   "https://i.ibb.co/9HJ17yc7/grup2-3.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
-  "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
   "https://i.ibb.co/1tdPyTYy/grup2-4.jpg",
 ];
 
@@ -332,29 +239,18 @@ export default function Portfolio() {
             <span className="text-sm text-gray-300">Yangi loyihalar uchun ochiq</span>
           </div>
         </div>
-
         <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           My Portfolio
         </h1>
-
         <p className="text-neutral-400 text-sm md:text-base max-w-2xl mx-auto text-center mb-8 md:mb-12">
           Bu bo'limda men yaratgan loyihalar to'plamini ko'rishingiz mumkin.
           Har bir loyiha o'ziga xos dizayn va texnologiyadan foydalanilgan.
         </p>
-
-        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-16">
           {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105"
-            >
+            <div key={idx} className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105">
               <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                <CountUp
-                  end={stat.value}
-                  suffix={stat.suffix}
-                  decimals={stat.decimals || 0}
-                />
+                <CountUp end={stat.value} suffix={stat.suffix} decimals={stat.decimals || 0} />
               </div>
               <div className="text-sm text-gray-400">{stat.label}</div>
             </div>
@@ -362,11 +258,10 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Modern Custom Carousel */}
       <div className="w-full max-w-7xl mb-16 px-4">
         <ModernCarousel images={imageLogos} />
       </div>
-      {/* Gallery cardlar */}
+
       <div className="w-full max-w-7xl">
         <Demo />
       </div>
