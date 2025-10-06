@@ -2,51 +2,68 @@
 
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
-import { Building2, Compass, Lightbulb, Users, Ruler, PenTool, Palette, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {
+  Building2,
+  Compass,
+  Lightbulb,
+  Users,
+  Ruler,
+  PenTool,
+  Palette,
+  Zap,
+} from "lucide-react";
 
 export default function Home() {
+  const navigate = useNavigate();
   const services = [
     {
       icon: <Building2 className="w-12 h-12" />,
       title: "Arxitektura loyihasi",
-      description: "Zamonaviy va funksional binolar uchun to'liq arxitektura loyihalash xizmati",
+      description:
+        "Zamonaviy va funksional binolar uchun to'liq arxitektura loyihalash xizmati",
     },
     {
       icon: <PenTool className="w-12 h-12" />,
       title: "Ichki dizayn",
-      description: "Noyob va shaxsiy uslubdagi interer dizayn yechimlari",
+      description:
+        "Noyob va shaxsiy uslubdagi interer dizayn yechimlari",
     },
     {
       icon: <Compass className="w-12 h-12" />,
       title: "3D vizualizatsiya",
-      description: "Loyihangizni hayotiy ko'rinishda ko'ring - fotorealistik render",
+      description:
+        "Loyihangizni hayotiy ko'rinishda ko'ring - fotorealistik render",
     },
     {
       icon: <Ruler className="w-12 h-12" />,
       title: "Konstruksiya nazorati",
-      description: "Qurilish jarayonida professional nazorat va maslahat",
+      description:
+        "Qurilish jarayonida professional nazorat va maslahat",
     },
     {
       icon: <Palette className="w-12 h-12" />,
       title: "Landshaft dizayni",
-      description: "Tashqi maydonlarni go'zal va ekologik jihatdan to'g'ri bezash",
+      description:
+        "Tashqi maydonlarni go'zal va ekologik jihatdan to'g'ri bezash",
     },
     {
       icon: <Zap className="w-12 h-12" />,
       title: "Ekologik loyihalar",
-      description: "Energiya tejovchi va tabiatga mos zamonaviy yechimlar",
+      description:
+        "Energiya tejovchi va tabiatga mos zamonaviy yechimlar",
     },
   ];
 
   const stats = [
-    { number: 150, suffix: "+", label: "Tugallangan loyihalar" },
-    { number: 12, suffix: "", label: "Yillik tajriba" },
-    { number: 50, suffix: "+", label: "Professional jamoa" },
-    { number: 98, suffix: "%", label: "Mijozlar qoniqishi" },
+    { number: 100, suffix: "+", label: "Tugallangan loyihalar" },
+    { number: 100, suffix: "+", label: "Loyihalar" },
+    { number: 5, suffix: "", label: "Yillik tajriba" },
+    { number: 100, suffix: "%", label: "Mijozlar qoniqishi" },
   ];
 
   return (
-    <main className="text-white min-h-screen overflow-hidden">
+    <main className="text-white min-h-screen overflow-hidden ">
       {/* HERO */}
       <section className="container mx-auto px-6 py-24">
         <motion.div
@@ -57,27 +74,29 @@ export default function Home() {
         >
           <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
             Biz bilan{" "}
-            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               kelajakni yarating
             </span>
           </h1>
           <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">
             Innovatsion texnologiyalar, zamonaviy dizayn va kuchli jamoa — biz sizga ishonchli yechimlar taklif qilamiz.
           </p>
+
           <div className="flex justify-center gap-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/30 transition-all"
-              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+               onClick={() => navigate("/portfolio")} 
+              className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-500/30 transition-all"
             >
               Xizmatlarimiz
             </motion.button>
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+               onClick={() => navigate("/portfolio")}
               className="bg-gray-100 text-gray-800 px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-all"
-              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
             >
               Biz haqimizda
             </motion.button>
@@ -96,17 +115,17 @@ export default function Home() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Biz{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               kimlar
             </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            Biz professional arxitektorlar va dizaynerlar jamoasimiz. Har bir loyihaga kreativlik, texnik bilim va mijoz ehtiyojlariga chuqur tushunish bilan yondashuvimiz mavjud.
+            Biz professional arxitektorlar va dizaynerlar jamoasimiz. Har bir loyihaga kreativlik, texnik bilim va mijoz ehtiyojlariga chuqur tushunish bilan yondashamiz.
           </p>
         </motion.div>
 
-        {/* STATISTIKA - COUNTUP */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        {/* STATISTIKA */}
+        <div className="grid grid-cols-2 md:grid-cols-4  gap-6 mb-16">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -114,9 +133,9 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-purple-500 transition-all"
+              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-red-600 transition-all"
             >
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
                 <CountUp end={stat.number} duration={2.5} suffix={stat.suffix} />
               </h3>
               <p className="text-gray-400">{stat.label}</p>
@@ -149,9 +168,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 hover:border-blue-500 transition-all backdrop-blur-sm"
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all backdrop-blur-sm"
             >
-              <div className="text-blue-400 mb-4">{value.icon}</div>
+              <div className="text-red-500 mb-4">{value.icon}</div>
               <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
               <p className="text-gray-400">{value.desc}</p>
             </motion.div>
@@ -170,7 +189,7 @@ export default function Home() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Bizning{" "}
-            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               xizmatlarimiz
             </span>
           </h2>
@@ -188,15 +207,17 @@ export default function Home() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-purple-500 transition-all group cursor-pointer"
+              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all group cursor-pointer"
             >
-              <div className="text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+              <div className="text-red-500 mb-6 group-hover:scale-110 transition-transform">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4 group-hover:text-purple-400 transition-colors">
+              <h3 className="text-2xl font-bold mb-4 group-hover:text-red-500 transition-colors">
                 {service.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed">{service.description}</p>
+              <p className="text-gray-400 leading-relaxed">
+                {service.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -211,7 +232,8 @@ export default function Home() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/50 transition-all"
+            onClick={ () => navigate("/Contact")}
+            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-red-500/50 transition-all"
           >
             Bepul maslahat oling
           </motion.button>

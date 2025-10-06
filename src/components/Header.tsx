@@ -7,7 +7,7 @@ export default function Header({ className = "" }) {
     <header className={`text-gray-600 body-font ${className}`}>
       <div className="container mx-auto flex justify-between items-center p-5 flex-row flex-wrap">
         {/* Logo qismi */}
-        <div className="flex items-center space-x-3">
+        <div onClick={() => navigate("/")} className="flex items-center space-x-3">
           <img
             className="object-contain rounded w-14 h-14"
             alt="hero"
