@@ -195,7 +195,7 @@ ${formData.message}
             </a>
 
             <a
-              href="tel:+998901234567"
+              href="tel:+998970072258"
               className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
             >
               <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
@@ -203,7 +203,7 @@ ${formData.message}
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">Telefon</h3>
-                <p className="text-neutral-400 text-sm">+998 90 123 45 67</p>
+                <p className="text-neutral-400 text-sm">+998 97 007 22 58</p>
               </div>
             </a>
           </div>
