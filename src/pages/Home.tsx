@@ -16,39 +16,38 @@ import {
 
 export default function Home() {
   const navigate = useNavigate();
+
   const services = [
     {
-      icon: <Building2 className="w-12 h-12" />,
+      icon: <Building2 className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "Arxitektura loyihasi",
       description:
         "Zamonaviy va funksional binolar uchun to'liq arxitektura loyihalash xizmati",
     },
     {
-      icon: <PenTool className="w-12 h-12" />,
+      icon: <PenTool className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "Ichki dizayn",
-      description:
-        "Noyob va shaxsiy uslubdagi interer dizayn yechimlari",
+      description: "Noyob va shaxsiy uslubdagi interer dizayn yechimlari",
     },
     {
-      icon: <Compass className="w-12 h-12" />,
+      icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "3D vizualizatsiya",
       description:
-        "Loyihangizni hayotiy ko'rinishda ko'ring - fotorealistik render",
+        "Loyihangizni hayotiy ko‘rinishda ko‘ring — fotorealistik render",
     },
     {
-      icon: <Ruler className="w-12 h-12" />,
+      icon: <Ruler className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "Konstruksiya nazorati",
-      description:
-        "Qurilish jarayonida professional nazorat va maslahat",
+      description: "Qurilish jarayonida professional nazorat va maslahat",
     },
     {
-      icon: <Palette className="w-12 h-12" />,
+      icon: <Palette className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "Landshaft dizayni",
       description:
-        "Tashqi maydonlarni go'zal va ekologik jihatdan to'g'ri bezash",
+        "Tashqi maydonlarni go‘zal va ekologik jihatdan to‘g‘ri bezash",
     },
     {
-      icon: <Zap className="w-12 h-12" />,
+      icon: <Zap className="w-10 sm:w-12 h-10 sm:h-12" />,
       title: "Ekologik loyihalar",
       description:
         "Energiya tejovchi va tabiatga mos zamonaviy yechimlar",
@@ -57,165 +56,154 @@ export default function Home() {
 
   const stats = [
     { number: 100, suffix: "+", label: "Tugallangan loyihalar" },
-    { number: 100, suffix: "+", label: "Loyihalar" },
+    { number: 50, suffix: "+", label: "Hamkor kompaniyalar" },
     { number: 5, suffix: "", label: "Yillik tajriba" },
     { number: 100, suffix: "%", label: "Mijozlar qoniqishi" },
   ];
 
   return (
-    <main className="text-white min-h-screen overflow-hidden ">
+    <main className="text-white min-h-screen overflow-hidden">
       {/* HERO */}
-      <section className="container mx-auto px-6 py-24">
+      <section className="container mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-20 md:py-28 text-center">
         <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex-1 text-center flex flex-col items-center"
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex flex-col items-center"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight">
             Biz bilan{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               kelajakni yarating
             </span>
           </h1>
-          <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto">
             Innovatsion texnologiyalar, zamonaviy dizayn va kuchli jamoa — biz sizga ishonchli yechimlar taklif qilamiz.
           </p>
 
-          <div className="flex justify-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-               onClick={() => navigate("/portfolio")} 
-              className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-500/30 transition-all"
-            >
-              Xizmatlarimiz
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-               onClick={() => navigate("/portfolio")}
-              className="bg-gray-100 text-gray-800 px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-all"
-            >
-              Biz haqimizda
-            </motion.button>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => navigate("/portfolio")}
+            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-red-500/30 transition-all"
+          >
+            Xizmatlarimiz
+          </motion.button>
         </motion.div>
       </section>
 
       {/* BIZ HAQIMIZDA */}
-      <section id="about" className="container mx-auto px-6 py-20">
+      <section className="container mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-20 md:py-28">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Biz{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               kimlar
             </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
             Biz professional arxitektorlar va dizaynerlar jamoasimiz. Har bir loyihaga kreativlik, texnik bilim va mijoz ehtiyojlariga chuqur tushunish bilan yondashamiz.
           </p>
         </motion.div>
 
         {/* STATISTIKA */}
-        <div className="grid grid-cols-2 md:grid-cols-4  gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl text-center border border-gray-700 hover:border-red-600 transition-all"
+              className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl text-center border border-gray-700 hover:border-red-600 transition-all"
             >
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
                 <CountUp end={stat.number} duration={2.5} suffix={stat.suffix} />
               </h3>
-              <p className="text-gray-400">{stat.label}</p>
+              <p className="text-gray-400 text-sm sm:text-base">{stat.label}</p>
             </motion.div>
           ))}
         </div>
 
         {/* QIYMATLAR */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
+        <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+          {[ 
             {
-              icon: <Lightbulb className="w-12 h-12" />,
+              icon: <Lightbulb className="w-10 sm:w-12 h-10 sm:h-12" />,
               title: "Innovatsiya",
-              desc: "Har doim yangi texnologiyalar va yondashuvlarni qo'llaymiz",
+              desc: "Har doim yangi texnologiyalar va yondashuvlarni qo‘llaymiz",
             },
             {
-              icon: <Users className="w-12 h-12" />,
+              icon: <Users className="w-10 sm:w-12 h-10 sm:h-12" />,
               title: "Jamoa ishi",
               desc: "Kuchli va professional jamoamiz bilan ishlash quvonch",
             },
             {
-              icon: <Compass className="w-12 h-12" />,
+              icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />,
               title: "Sifat",
               desc: "Har bir loyihada yuqori sifat va mijoz qoniqishi bizning maqsadimiz",
             },
           ].map((value, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.7, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all backdrop-blur-sm"
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all backdrop-blur-sm text-center"
             >
-              <div className="text-red-500 mb-4">{value.icon}</div>
-              <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
-              <p className="text-gray-400">{value.desc}</p>
+              <div className="text-red-500 mb-3 sm:mb-4 flex justify-center">{value.icon}</div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">{value.title}</h3>
+              <p className="text-gray-400 text-sm sm:text-base">{value.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* XIZMATLAR */}
-      <section id="services" className="container mx-auto px-6 py-20">
+      <section className="container mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-20 md:py-28">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Bizning{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
               xizmatlarimiz
             </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
             Arxitektura va dizayn sohasida keng qamrovli professional xizmatlar taklif etamiz
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all group cursor-pointer"
+              className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all group cursor-pointer"
             >
-              <div className="text-red-500 mb-6 group-hover:scale-110 transition-transform">
+              <div className="text-red-500 mb-4 group-hover:scale-110 transition-transform flex justify-center">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4 group-hover:text-red-500 transition-colors">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-red-500 transition-colors text-center">
                 {service.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed text-sm sm:text-base text-center">
                 {service.description}
               </p>
             </motion.div>
@@ -223,17 +211,17 @@ export default function Home() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-12 sm:mt-16"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={ () => navigate("/Contact")}
-            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-red-500/50 transition-all"
+            onClick={() => navigate("/Contact")}
+            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-8 sm:px-10 py-3 sm:py-4 rounded-xl mb-4 font-semibold text-base sm:text-lg shadow-lg hover:shadow-red-500/50 transition-all"
           >
             Bepul maslahat oling
           </motion.button>
