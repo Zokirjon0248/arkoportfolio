@@ -25,28 +25,25 @@ const WhyWorkWithMe = () => {
   return (
     <div className="w-full rounded-4xl bg-gradient-to-br from-gray-950 via-gray-900 to-black py-24 px-4 sm:px-6 lg:px-8">
       <div ref={sectionRef} className="max-w-6xl mx-auto">
-        {/* Header Section */}
+        {/* Sarlavha qismi */}
         <div
           className={`text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-            Nima uchun aynan men bilan ishlash kerak
+            Nima uchun aynan biz bilan ishlashingiz kerak
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            Why Work With Me
-          </p>
           <p className="text-base md:text-lg text-gray-500 max-w-3xl mx-auto mt-6 leading-relaxed">
-            Tajriba va innovatsiya birlashadi. Men ijodiy mukammallik va isbotlangan tajribani
-            birlashtirgan me'moriy yechimlarni taqdim etaman, har bir loyiha kutilganidan oshib
-            ketishini ta'minlayman.
+            Tajriba va innovatsiya bir joyda. Biz ijodiy mukammallikni va ishonchli tajribani
+            birlashtirgan yechimlarni taklif etamiz. Har bir loyiha siz kutganingizdan ham yuqori
+            natija beradi.
           </p>
         </div>
 
-        {/* Two Main Cards */}
+        {/* Asosiy ikkita karta */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Card - Experience & Stats */}
+          {/* Chap karta – Tajriba va natijalar */}
           <div
             className={`group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 md:p-10 border border-gray-800 hover:border-orange-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/10 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
@@ -70,49 +67,48 @@ const WhyWorkWithMe = () => {
                     <span className="text-xl text-gray-300">Yil</span>
                   </div>
                   <p className="text-gray-400 text-sm">
-                    Me'moriy dizayn va loyihalarni boshqarishdagi professional tajriba
+                    Me’moriy dizayn va loyihalarni boshqarish bo‘yicha professional tajriba
                   </p>
                 </div>
 
                 <div className="border-l-2 border-red-500/30 pl-6 hover:border-red-500 transition-colors">
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-4xl font-bold text-red-400">15+</span>
+                    <span className="text-4xl font-bold text-red-400">100+</span>
                     <span className="text-xl text-gray-300">Loyiha</span>
                   </div>
                   <p className="text-gray-400 text-sm">
-                    Turar-joy, tijorat va davlat sektorida muvaffaqiyatli yakunlangan
+                    Turli turar-joy, tijorat va davlat loyihalari muvaffaqiyatli yakunlangan
                   </p>
                 </div>
 
                 <div className="border-l-2 border-yellow-500/30 pl-6 hover:border-yellow-500 transition-colors">
                   <div className="flex items-baseline gap-2 mb-1">
-                    {/* Gradient text */}
                     <span className="text-4xl font-bold bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
-                      20+
+                      100+
                     </span>
-                    <span className="text-xl text-gray-300">Happy Clients</span>
+                    <span className="text-xl text-gray-300">Mamnun mijozlar</span>
                   </div>
                   <p className="text-gray-400 text-sm">
-                    Trusted by individuals and businesses for exceptional architectural solutions
+                    Yagona sifatli yechimlar orqali ishonch qozongan mijozlar
                   </p>
                 </div>
 
                 <div className="pt-4 mt-6 border-t border-gray-700">
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Every project is delivered with{' '}
-                    <span className="text-blue-400 font-semibold">precision</span>,{' '}
-                    <span className="text-purple-400 font-semibold">creativity</span>, and{' '}
+                    Har bir loyiha{' '}
+                    <span className="text-blue-400 font-semibold">aniqlik</span>,{' '}
+                    <span className="text-purple-400 font-semibold">ijodkorlik</span> va{' '}
                     <span className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent font-semibold">
-                      dedication
+                      fidoyilik
                     </span>{' '}
-                    to excellence.
+                    bilan bajariladi.
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Card - Why Choose Me */}
+          {/* O‘ng karta – Nega meni tanlashadi */}
           <div
             className={`group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 md:p-10 border border-gray-800 hover:border-yellow-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/10 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
@@ -126,7 +122,7 @@ const WhyWorkWithMe = () => {
                 <div className="p-3 bg-yellow-500/10 rounded-xl group-hover:bg-yellow-500/20 transition-colors">
                   <Sparkles className="w-6 h-6 text-yellow-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Nega aynan meni tanlashadi</h3>
+                <h3 className="text-2xl font-bold text-white">Nega aynan bizni tanlashadi</h3>
               </div>
 
               <div className="space-y-5">
@@ -136,19 +132,19 @@ const WhyWorkWithMe = () => {
                     Noyob Dizayn Yondashuvi
                   </h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Men zamonaviy estetikani funktsional innovatsiya bilan birlashtirib, ham chiroyli,
-                    ham maqsadga muvofiq bo'lgan fazolarni yarataman.
+                    Zamonaviy estetikani funksional innovatsiya bilan uyg‘unlashtirib, chiroyli va
+                    amaliy fazolar yaratamiz.
                   </p>
                 </div>
 
                 <div className="group/item p-4 rounded-xl hover:bg-gray-800/50 transition-all cursor-default">
                   <h4 className="text-lg font-semibold text-blue-300 mb-2 flex items-center gap-2">
                     <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                    Tafsilotlarga E'tibor
+                    Tafsilotlarga E’tibor
                   </h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Har bir element diqqat bilan ko'rib chiqiladi — dastlabki konsepsiyadan yakuniy
-                    bajarilishigacha — har bir jihatda mukammallikni ta'minlaydi.
+                    Har bir element diqqat bilan o‘rganiladi — konsepsiyadan yakunigacha mukammallik
+                    ta’minlanadi.
                   </p>
                 </div>
 
@@ -158,8 +154,7 @@ const WhyWorkWithMe = () => {
                     Tez va Aniq Muloqot
                   </h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Shaffof yangilanishlar, tezkor javoblar va butun loyiha davomida hamkorlikdagi
-                    yondashuv.
+                    Shaffof yangilanishlar, tezkor javoblar va har bosqichda hamkorlikdagi yondashuv.
                   </p>
                 </div>
 
@@ -169,8 +164,8 @@ const WhyWorkWithMe = () => {
                     Barqaror Yechimlar
                   </h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Atrof-muhitni hurmat qilgan holda uzoq muddatli qiymat yaratadigan ekologik toza
-                    dizayn amaliyotlariga sodiqman.
+                    Atrof-muhitga e’tibor bilan, uzoq muddatli qiymat beruvchi ekologik dizayn
+                    amaliyotlariga sodiqmiz.
                   </p>
                 </div>
               </div>

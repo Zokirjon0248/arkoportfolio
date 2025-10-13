@@ -26,65 +26,44 @@ export default function Contact() {
   const infoRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  // 🔥 Animatsiyalar
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Chap taraf (kontaktlar)
-      gsap.fromTo(
-        infoRef.current,
-        { opacity: 0, x: -100 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: infoRef.current,
-            start: "top 85%",
-          },
-        }
-      );
-
-      // O‘ng taraf (forma)
-      gsap.fromTo(
-        formRef.current,
-        { opacity: 0, x: 100 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          delay: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: "top 85%",
-          },
-        }
-      );
-
-      // Chap tarafdagi har bir link uchun kechikkan chiqish effekti
-      const links = infoRef.current?.querySelectorAll(".contact-link");
-      if (links) {
-        gsap.fromTo(
-          links,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            stagger: 0.15,
-            delay: 0.3,
-            ease: "back.out(1.6)",
-            scrollTrigger: {
-              trigger: infoRef.current,
-              start: "top 85%",
-            },
-          }
-        );
+ useEffect(() => {
+  const ctx = gsap.context(() => {
+    // Chap qism (kontaktlar)
+    gsap.fromTo(
+      infoRef.current,
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: infoRef.current,
+          start: "top 85%",
+        },
       }
-    });
-    return () => ctx.revert();
-  }, []);
+    );
+
+    // O‘ng qism (forma)
+    gsap.fromTo(
+      formRef.current,
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+  });
+
+  return () => ctx.revert();
+}, []);
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -159,7 +138,7 @@ ${formData.message}
               Biz bilan bog‘laning
             </h1>
             <p className="text-neutral-400 text-lg">
-              Savolingiz yoki taklifingiz bormi? Biz har doim yordam berishga tayyormiz.
+              Savolingiz yoki taklifingiz bormi? Biz har doim yordam berishga tayyormiz!
             </p>
           </div>
 
@@ -195,7 +174,7 @@ ${formData.message}
             </a>
 
             <a
-              href="tel:+998970072258"
+              href="tel:+998993474703"
               className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
             >
               <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
@@ -203,7 +182,7 @@ ${formData.message}
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">Telefon</h3>
-                <p className="text-neutral-400 text-sm">+998 97 007 22 58</p>
+                <p className="text-neutral-400 text-sm">+998 99 347 47 03</p>
               </div>
             </a>
           </div>

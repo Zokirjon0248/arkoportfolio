@@ -4,7 +4,7 @@ export default function Header({ className = "" }) {
   const navigate = useNavigate();
 
   return (
-    <header className={`text-gray-600 body-font ${className}`}>
+    <header className={`text-gray-600  body-font ${className}`}>
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-5 flex-wrap gap-4">
         {/* Logo qismi */}
         <div

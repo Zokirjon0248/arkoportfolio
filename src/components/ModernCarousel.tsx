@@ -114,7 +114,7 @@ export default function ModernCarousel({ images = [] }: ModernCarouselProps) {
   const currentPage = Math.floor(current / slidesPerView) % totalPages;
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       {/* Carousel Container */}
       <div 
         ref={containerRef}

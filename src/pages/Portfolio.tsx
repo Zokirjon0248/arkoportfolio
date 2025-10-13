@@ -49,52 +49,46 @@ function CountUp({ end, suffix = "", decimals = 0 }: CountUpProps) {
 export default function Portfolio() {
   const textRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // Text animatsiyasi (qimirlab tushadi)
-    gsap.fromTo(
-      textRef.current,
-      { opacity: 0, y: -80, scale: 0.9 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1.4,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 80%",
-        },
-      }
-    );
-
-    // Stat card animatsiyalari
-    const cards = cardsRef.current?.querySelectorAll(".stat-card");
-    if (cards) {
-      cards.forEach((card, i) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, x: i < 2 ? -80 : 80 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.8,
-            delay: i * 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%",
-            },
-          }
-        );
-      });
+useEffect(() => {
+  // 🔹 Matn (tepadan chiqadi)
+  gsap.fromTo(
+    textRef.current,
+    { opacity: 0, y: -80 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "top 85%",
+      },
     }
-  }, []);
+  );
+
+  // 🔹 Stat cardlar (pastdan chiqadi)
+  gsap.fromTo(
+    cardsRef.current,
+    { opacity: 0, y: 100 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      delay: 0.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: cardsRef.current,
+        start: "top 85%",
+      },
+    }
+  );
+}, []);
+
 
   const stats = [
-    { value: 20, suffix: "+", label: "Tugallangan loyihalar" },
+    { value: 100, suffix: "+", label: "Tugallangan loyihalar" },
     { value: 5, suffix: "+", label: "Hamkor kompaniyalar" },
-    { value: 3, suffix: "+", label: "Yillik tajriba" },
+    { value: 5, suffix: "+", label: "Yillik tajriba" },
     { value: 100, suffix: "%", label: "Mijozlar mamnunligi" },
   ];
 
@@ -117,7 +111,6 @@ export default function Portfolio() {
     "https://i.ibb.co/TML26ymt/grup5-3.jpg",
     "https://i.ibb.co/s9pRZhgx/grup5-4.jpg",
     "https://i.ibb.co/35PyMT7v/grup5-5.jpg",
-    "https://i.ibb.co/KxW3wGGf/grup6-5.jpg",
     "https://i.ibb.co/j9fGsQy8/grup6-2.jpg",
     "https://i.ibb.co/JwW3pYJf/grup6-3.jpg",
     "https://i.ibb.co/zVyvG73d/grup6-4.jpg",
@@ -146,14 +139,14 @@ export default function Portfolio() {
 
         {/* MY oq, Portfolio olovrang */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="text-white">MY </span>
+          <span className="text-white">Bizning </span>
           <span className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
             PORTFOLIO
           </span>
         </h1>
 
         <p className="text-white/90 text-sm md:text-base max-w-2xl mx-auto mb-12">
-          Bu bo‘limda men yaratgan loyihalarni ko‘rishingiz mumkin. Har bir loyiha
+          Bu bo‘limda biz yaratgan loyihalarni ko‘rishingiz mumkin. Har bir loyiha
           o‘ziga xos dizayn va texnologiyalardan foydalangan.
         </p>
 
@@ -177,7 +170,7 @@ export default function Portfolio() {
       </div>
 
       {/* Carousel */}
-      <div className="w-full max-w-7xl mb-16 px-4">
+      <div className="w-full max-w-7xl mb-16 px-4 z-50">
         <ModernCarousel images={images} />
       </div>
 

@@ -46,7 +46,7 @@ export default function Home() {
           <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight">
             Biz bilan{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-              kelajakni yarating
+              kelajakni yarating!
             </span>
           </h1>
           <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto">
@@ -76,7 +76,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Biz{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-              kimlar
+              haqimizda
             </span>
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">

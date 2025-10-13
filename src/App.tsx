@@ -7,6 +7,10 @@ import LightRays from '@/components/LightRays';
 import Dock from '@/components/Dock';
 import { VscHome, VscMail, VscBriefcase } from 'react-icons/vsc';
 import Header from './components/Header';
+import ScrollToTop  from "@/components/ScrollToTop"
+
+
+
 export default function App() {
   const navigate = useNavigate();
 
@@ -37,6 +41,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       {/* Background light effects */}
+      <ScrollToTop />
       <Header className="relative z-20" />
       <div
         style={{
