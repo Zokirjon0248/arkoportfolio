@@ -1,23 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import LightRays from '@/components/LightRays';
-import Dock from '@/components/Dock';
 import { VscHome, VscMail, VscBriefcase } from 'react-icons/vsc';
-import Header from './components/Header';
-import ScrollToTop  from "@/components/ScrollToTop"
-
-
+import ScrollToTop from "@/components/ScrollToTop";
+import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
 
 export default function App() {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const items = [
-    { icon: <VscHome color="#fff" size={18} />, label: 'Home', onClick: () => navigate('/') },
-    { icon: <VscMail color="#fff" size={18} />, label: 'Contact', onClick: () => navigate('/contact') },
-    { icon: <VscBriefcase color="#fff" size={18} />, label: 'Portfolio', onClick: () => navigate('/portfolio') },
+  const sidebarLinks = [
+    {
+      label: "Home",
+      href: "/",
+      icon: <VscHome className="text-neutral-200 h-5 w-5" />,
+    },
+    {
+      label: "Contact",
+      href: "/contact",
+      icon: <VscMail className="text-neutral-200 h-5 w-5" />,
+    },
+    {
+      label: "Portfolio",
+      href: "/portfolio",
+      icon: <VscBriefcase className="text-neutral-200 h-5 w-5" />,
+    },
   ];
 
   const [rayLength, setRayLength] = useState(1.2);
@@ -32,56 +41,67 @@ export default function App() {
         setRayLength(1.2); 
       }
     }
-
     updateRayLength();
     window.addEventListener('resize', updateRayLength);
     return () => window.removeEventListener('resize', updateRayLength);
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Background light effects */}
-      <ScrollToTop />
-      <Header className="relative z-20" />
-      <div
-        style={{
-          width: '100%',
-          height: 600,
-          position: 'fixed',
-          background: 'black',
-          top: 0,
-          left: 0,
-          zIndex: 0,
-        }}
-      >
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#fff"
-          raysSpeed={1.5}
-          lightSpread={0.8}
-          rayLength={rayLength}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0.1}
-          distortion={0.05}
-          className="custom-rays"
-        />
-      </div>
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      
+      {/* Sidebar */}
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between gap-10">
+          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+         
+            
+            <div className="flex flex-col gap-2">
+              {sidebarLinks.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
+            </div>
+          </div>
+        </SidebarBody>
+      </Sidebar>
 
-      {/* Page content */}
-      <div className="relative z-10 flex flex-col items-center p-4">
-        <div className="w-full max-w-6xl">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-          </Routes>
+      {/* Main content - sidebar width hisobiga padding */}
+      <div className="md:ml-[60px] min-h-screen pt-16 md:pt-0">
+        <ScrollToTop />
+        
+        <div
+          style={{
+            width: '100%',
+            height: 600,
+            position: 'fixed',
+            background: 'black',
+            top: 0,
+            left: 0,
+            zIndex: 0,
+          }}
+        >
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#fff"
+            raysSpeed={1.5}
+            lightSpread={0.8}
+            rayLength={rayLength}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0.1}
+            distortion={0.05}
+            className="custom-rays"
+          />
         </div>
-      </div>
 
-      {/* Dock — always fixed at the bottom */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <Dock items={items} panelHeight={68} baseItemSize={50} magnification={70} />
+        <div className="relative z-10 flex flex-col items-center p-4">
+          <div className="w-full max-w-6xl">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+            </Routes>
+          </div>
+        </div>
       </div>
     </div>
   );

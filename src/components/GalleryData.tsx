@@ -17,14 +17,29 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(mainImage);
   const [isImageChanging, setIsImageChanging] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set([mainImage]));
+  const [imageLoading, setImageLoading] = useState(false);
 
   const allImages = [mainImage, ...relatedImages];
 
+  // Preload images when modal opens
+  useEffect(() => {
+    if (isModalOpen) {
+      allImages.forEach((img) => {
+        if (!loadedImages.has(img)) {
+          const image = new Image();
+          image.src = img;
+          image.onload = () => {
+            setLoadedImages(prev => new Set([...prev, img]));
+          };
+        }
+      });
+    }
+  }, [isModalOpen, allImages]);
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsModalOpen(false);
-      }
+      if (e.key === "Escape") setIsModalOpen(false);
     };
 
     if (isModalOpen) {
@@ -49,11 +64,27 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
 
   const handleThumbnailClick = (image: string) => {
     if (image !== selectedImage) {
+      setImageLoading(true);
       setIsImageChanging(true);
-      setTimeout(() => {
-        setSelectedImage(image);
-        setIsImageChanging(false);
-      }, 150);
+      
+      // If image is already loaded, show it quickly
+      if (loadedImages.has(image)) {
+        setTimeout(() => {
+          setSelectedImage(image);
+          setIsImageChanging(false);
+          setImageLoading(false);
+        }, 150);
+      } else {
+        // Preload before showing
+        const img = new Image();
+        img.src = image;
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, image]));
+          setSelectedImage(image);
+          setIsImageChanging(false);
+          setImageLoading(false);
+        };
+      }
     }
   };
 
@@ -80,6 +111,7 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
           <img
             src={mainImage}
             alt={title}
+            loading="lazy"
             className="w-full h-64 object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -107,35 +139,42 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
       {/* Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm"
           onClick={handleOverlayClick}
-          style={{ animation: "fadeIn 0.3s ease-out" }}
+          style={{ animation: "fadeIn 0.2s ease-out" }}
         >
           <div
             className="relative w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden bg-gray-900"
-            style={{ animation: "scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
+            style={{ animation: "scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
           >
-            {/* Close button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 p-2.5 bg-white rounded-full hover:bg-red-500 hover:rotate-90 transition-all duration-300 shadow-lg hover:scale-110 group"
-            >
-              <X className="w-6 h-6 text-gray-800 group-hover:text-white transition-colors" />
-            </button>
-
             {/* Image counter */}
             <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm font-semibold">
               {allImages.indexOf(selectedImage) + 1} / {allImages.length}
             </div>
 
             {/* Main image */}
-            <div className="w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 to-gray-900">
+            <div className="relative w-full h-96 md:h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-950 to-gray-900">
+              {imageLoading && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+                </div>
+              )}
               <img
                 src={selectedImage}
                 alt="Selected"
-                className={`max-w-full max-h-full object-contain transition-all duration-500 ${isImageChanging ? "opacity-0 scale-95 blur-sm" : "opacity-100 scale-100 blur-0"
-                  }`}
+                className={`max-w-full max-h-full object-contain transition-all duration-300 ${
+                  isImageChanging ? "opacity-0 scale-95" : "opacity-100 scale-100"
+                }`}
+                style={{ willChange: 'opacity, transform' }}
               />
+              
+              {/* Close button - rasmning ustida */}
+              <button
+                onClick={closeModal}
+                className="absolute -top-12 right-0 p-2.5 bg-red-500 hover:bg-red-600 rounded-full hover:rotate-90 transition-all duration-300 shadow-lg hover:scale-110 group"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
             </div>
 
             {/* Thumbnails */}
@@ -145,18 +184,20 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
                   key={idx}
                   onClick={() => handleThumbnailClick(image)}
                   style={{
-                    animation: "slideInRight 0.5s ease-out forwards",
-                    animationDelay: `${idx * 0.05}s`
+                    animation: "slideInRight 0.3s ease-out forwards",
+                    animationDelay: `${idx * 0.03}s`
                   }}
-                  className={`flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden transition-all duration-300 transform ${selectedImage === image
-                    ? "ring-4 ring-blue-500 scale-95 shadow-xl shadow-blue-500/50"
-                    : "hover:ring-2 hover:ring-gray-400 hover:scale-110 hover:-translate-y-2 opacity-70 hover:opacity-100"
-                    }`}
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-200 transform ${
+                    selectedImage === image
+                      ? "ring-4 ring-blue-500 scale-95 shadow-xl shadow-blue-500/50"
+                      : "hover:ring-2 hover:ring-gray-400 hover:scale-105 opacity-70 hover:opacity-100"
+                  }`}
                 >
                   <img
                     src={image}
                     alt={`Thumbnail ${idx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
                   />
                 </button>
               ))}
@@ -173,193 +214,133 @@ const Demo = () => {
     {
       mainImage: "/1.1.jpg",
       title: "Minimalizm – sokinlikning kaliti.",
-      description: "Yotoqxona – bu dam olish va xotirjamlik maskani. Ortiqcha bezaklarsiz, faqat kerakli narsalar bilan to'ldirilgan makon sizga ichki tinchlikni his qilishga yordam beradi. Toza chiziqlar, yorug' ranglar va minimalist mebel – qulaylik va zamonaviylik uyg'unligi.",
-      relatedImages: [
-        "/1.2.jpg",
-        "/1.3.jpg",
-        "/1.4.jpg",
-        "/1.5.jpg",
-      ],
+      description: "Yotoqxona – bu dam olish va xotirjamlik maskani. Ortiqcha bezaklarsiz, faqat kerakli narsalar bilan to'ldirilgan makon sizga ichki tinchlikni his qilishga yordam beradi.",
+      relatedImages: ["/1.2.jpg", "/1.3.jpg", "/1.4.jpg", "/1.5.jpg"],
     },
     {
       mainImage: "/2.1.jpg",
       title: "Minimalistik yotoqxonada har kuni uyg'onish",
       description: "O'zingizga berilgan eng yaxshi sovg'a. Tashvishlardan yiroq, tartibli va toza joy — haqiqiy dam olish manzili.",
-      relatedImages: [
-        "/2.2.jpg",
-        "/2.3.jpg",
-        "/2.4.jpg",
-        "/2.5.jpg",
-      ],
+      relatedImages: ["/2.2.jpg", "/2.3.jpg", "/2.4.jpg", "/2.5.jpg"],
     },
     {
       mainImage: "/3.1.jpg",
       title: "Sizning ideal oshxonangiz qanday bo'lishi kerak",
-      description: "Tartibli va zamonaviy oshxona — eng yaxshi tanlov. Biz sizga faqat go'zal ko'rinish emas, balki kundalik hayotingizni soddalashtiradigan amaliy yechimlarni taklif qilamiz. Har bir detal sizning qulayligingiz uchun ishlaydi.",
-      relatedImages: [
-        "/3.2.jpg",
-        "/3.3.jpg",
-        "/3.4.jpg",
-      ],
+      description: "Tartibli va zamonaviy oshxona — eng yaxshi tanlov. Biz sizga faqat go'zal ko'rinish emas, balki kundalik hayotingizni soddalashtiradigan amaliy yechimlarni taklif qilamiz.",
+      relatedImages: ["/3.2.jpg", "/3.3.jpg", "/3.4.jpg"],
     },
     {
       mainImage: "/4.1.jpg",
       title: "Kichik joy – katta imkoniyat!",
-      description: "Hojatxona dizayni haqida o'ylayotganda, uni oddiygina texnik xona deb o'ylamang. To'g'ri tanlangan ranglar, devor va pol materiallari, chiroqlar va zamonaviy sanitariya jihozlari yordamida bu joyni ham zamonaviy va qulay makonga aylantirish mumkin.",
-      relatedImages: [
-        "/4.2.jpg",
-        "/4.3.jpg",
-        "/4.4.jpg",
-      ],
+      description: "Hojatxona dizayni haqida o'ylayotganda, uni oddiygina texnik xona deb o'ylamang. To'g'ri tanlangan ranglar, dekor va sanitariya jihozlari yordamida bu joyni zamonaviy makonga aylantirish mumkin.",
+      relatedImages: ["/4.2.jpg", "/4.3.jpg", "/4.4.jpg"],
     },
     {
       mainImage: "/5.1.jpg",
       title: "Oshxona – uy yuragi!",
-      description: "Biz siz orzu qilgan oshxonani yaratamiz: zamonaviy, qulay, chiroyli va har kuni ilhom baxsh etadigan. Oshxonangiz kichik bo'ladimi yoki katta, biz har bir kvadrat metrni to'g'ri tashkil qilishni bilamiz.",
-      relatedImages: [
-        "/5.2.jpg",
-        "/5.3.jpg",
-      ],
+      description: "Biz siz orzu qilgan oshxonani yaratamiz: zamonaviy, qulay, chiroyli va har kuni ilhom baxsh etadigan.",
+      relatedImages: ["/5.2.jpg", "/5.3.jpg"],
     },
     {
       mainImage: "/6.1.jpg",
       title: "Klassik uslubdagi eksteryer dizayni",
-      description: "Klassik uslub — bu nafislik, uyg'unlik va vaqt sinovidan o'tgan go'zallik uyg'unligidir. Bunday dizaynda har bir detal — ustunlar, karnizlar, simmetriya va muvozanat — uy fasadini hashamatli va obro'li ko'rsatadi.",
-      relatedImages: [
-        "/6.2.jpg",
-        "/6.3.jpg",
-        "/6.4.jpg",
-      ],
+      description: "Klassik uslub — bu nafislik, uyg'unlik va vaqt sinovidan o'tgan go'zallik uyg'unligidir.",
+      relatedImages: ["/6.2.jpg", "/6.3.jpg", "/6.4.jpg"],
     },
     {
       mainImage: "/7.1.jpg",
-      title: "Tashqi ko‘rinish — birinchi taassurot.",
-      description: "Uyingiz yoki binongizning tashqi ko‘rinishi siz haqingizda ko‘p narsani aytadi. Biz sizga zamonaviy yoki klassik uslubda, orzuyingizdagi tashqi makon dizaynini yaratamiz. Tabiiy materiallar, puxta muvofiqlashtirilgan ranglar va mukammal tafsilotlar orqali har bir mijozga individual yondashuvni kafolatlaymiz.",
-      relatedImages: [
-        "/7.2.jpg",
-        "/7.3.jpg",
-        "/7.4.jpg",
-      ],
-
+      title: "Tashqi ko'rinish — birinchi taassurot.",
+      description: "Uyingiz yoki binongizning tashqi ko'rinishi siz haqingizda ko'p narsani aytadi.",
+      relatedImages: ["/7.2.jpg", "/7.3.jpg", "/7.4.jpg"],
     },
     {
       mainImage: "/8.1.jpg",
       title: "Hashamatdan yiroq",
-      description: "Agar siz hashamatdan yiroq, ammo chiroyli va zamonaviy eksteryer istasangiz — bu uslub aynan siz uchun. Uyingizga sokinlik, zamonaviylik va estetik muvozanat olib kiradi.",
-      relatedImages: [
-        "/8.2.jpg",
-        "/8.3.jpg",
-      ],
+      description: "Agar siz hashamatdan yiroq, ammo chiroyli va zamonaviy eksteryer istasangiz — bu uslub aynan siz uchun.",
+      relatedImages: ["/8.2.jpg", "/8.3.jpg"],
     },
     {
       mainImage: "/9.1.jpg",
       title: "Zamonaviy, oson tozalanadigan va qulay sanuzel",
-      description: "Agar siz zamonaviy, oson tozalanadigan va qulay sanuzel yaratmoqchi bo‘lsangiz — bizning dizayn variantlarimiz aynan shunday talablarni qondiradi.",
-      relatedImages: [
-        "/9.2.jpg",
-        "/9.3.jpg",
-        "/9.4.jpg",
-        "/9.5.jpg",
-        "/9.6.jpg",
-      ],
+      description: "Agar siz zamonaviy, oson tozalanadigan va qulay sanuzel yaratmoqchi bo'lsangiz — bizning dizayn variantlarimiz aynan shunday talablarni qondiradi.",
+      relatedImages: ["/9.2.jpg", "/9.3.jpg", "/9.4.jpg", "/9.5.jpg", "/9.6.jpg"],
     },
     {
       mainImage: "/10.1.jpg",
       title: "Oddiy, ammo estetik jihatdan nafis",
-      description: "Agar siz oddiy, ammo estetik jihatdan nafis va tinchlantiruvchi yotoqxona yaratmoqchi bo‘lsangiz, minimalizm uslubi aynan siz uchun!",
-      relatedImages: [
-        "/10.2.jpg",
-        "/10.3.jpg",
-        "/10.4.jpg",
-        "/10.5.jpg",
-      ],
+      description: "Agar siz oddiy, ammo estetik jihatdan nafis va tinchlantiruvchi yotoqxona yaratmoqchi bo'lsangiz, minimalizm uslubi aynan siz uchun!",
+      relatedImages: ["/10.2.jpg", "/10.3.jpg", "/10.4.jpg", "/10.5.jpg"],
     },
+  {
+  mainImage: "/11.1.jpg",
+  title: "Mehmonxona — bu tashrif buyuruvchilar birinchi taassurotni hosil qiladigan joy.",
+  description: `Shuning uchun har bir detal iliqlik, qulaylik va nafislik uyg‘unligida yaratildi.
+Har bir mehmonga uydek iliq tuyg‘u bag‘ishlaydigan dizayn.`,
+  relatedImages: ["/11.2.jpg", "/11.3.jpg", "/11.4.jpg", "/11.5.jpg"],
+},
 
   ];
 
   return (
     <div className="min-h-screen py-12 px-4 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 rounded-2xl">
       <style>{`
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(40px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
           }
-
-          @keyframes scaleIn {
-            from {
-              opacity: 0;
-              transform: scale(0.85) translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1) translateY(0);
-            }
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
+        }
 
-          @keyframes slideInRight {
-            from {
-              opacity: 0;
-              transform: translateX(-30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-            }
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
           }
-
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
+          to {
+            opacity: 1;
+            transform: scale(1);
           }
+        }
 
-          @keyframes float {
-            0%, 100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-15px);
-            }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
           }
-
-        
-
-          .animate-float {
-            animation: float 4s ease-in-out infinite;
+          to {
+            opacity: 1;
+            transform: translateX(0);
           }
+        }
 
-          .animate-glow {
-            animation: glow 3s ease-in-out infinite;
-          }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
 
-          .scrollbar-thin::-webkit-scrollbar {
-            height: 8px;
-          }
+        .scrollbar-thin::-webkit-scrollbar {
+          height: 8px;
+        }
 
-          .scrollbar-thumb-gray-600::-webkit-scrollbar-thumb {
-            background-color: #4b5563;
-            border-radius: 4px;
-          }
+        .scrollbar-thumb-gray-600::-webkit-scrollbar-thumb {
+          background-color: #4b5563;
+          border-radius: 4px;
+        }
 
-          .scrollbar-track-gray-800::-webkit-scrollbar-track {
-            background-color: #1f2937;
-          }
-        `}</style>
+        .scrollbar-track-gray-800::-webkit-scrollbar-track {
+          background-color: #1f2937;
+        }
+      `}</style>
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16" style={{ animation: "fadeInUp 0.8s ease-out" }}>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white animate-float">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 animate-glow">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400">
               Galereya ko'rgazmasi
             </span>
           </h1>

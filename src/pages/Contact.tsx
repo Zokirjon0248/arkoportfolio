@@ -144,7 +144,7 @@ ${formData.message}
 
           <div className="space-y-5">
             <a
-              href="https://t.me/arx_dexium_design"
+              href="https://t.me/arxdexium"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
@@ -154,7 +154,7 @@ ${formData.message}
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">Telegram</h3>
-                <p className="text-neutral-400 text-sm">t.me/arx_dexium_design</p>
+                <p className="text-neutral-400 text-sm">@arxdexium</p>
               </div>
             </a>
 
