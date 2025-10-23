@@ -169,12 +169,22 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
               />
               
               {/* Close button - rasmning ustida */}
-              <button
-                onClick={closeModal}
-                className="absolute -top-12 right-0 p-2.5 bg-red-500 hover:bg-red-600 rounded-full hover:rotate-90 transition-all duration-300 shadow-lg hover:scale-110 group"
-              >
-                <X className="w-6 h-6 text-white" />
-              </button>
+          <button
+  onClick={closeModal}
+  className="
+    absolute 
+    top-3 right-3
+    sm:top-4 sm:right-5
+    p-2 bg-red-500 hover:bg-red-600 
+    rounded-full 
+    hover:rotate-90 
+    transition-all duration-300 
+    shadow-lg hover:scale-110 group
+  "
+>
+  <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+</button>
+
             </div>
 
             {/* Thumbnails */}
@@ -245,7 +255,7 @@ const Demo = () => {
       mainImage: "/6.1.jpg",
       title: "Klassik uslubdagi eksteryer dizayni",
       description: "Klassik uslub — bu nafislik, uyg'unlik va vaqt sinovidan o'tgan go'zallik uyg'unligidir.",
-      relatedImages: ["/6.2.jpg", "/6.3.jpg", "/6.4.jpg"],
+      relatedImages: ["/6.2.jpg", "/6.3.jpg", "/6.4.jpg",  "/6.5.jpg"],
     },
     {
       mainImage: "/7.1.jpg",
