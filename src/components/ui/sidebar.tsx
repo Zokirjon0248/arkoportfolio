@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const cn = (...classes: (string | undefined | null | false)[]) => {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 };
 
 interface Links {
@@ -72,20 +72,30 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+// ✅ SidebarBody faqat ReactNode children’larni qabul qiladi
+export const SidebarBody = ({
+  children,
+  ...props
+}: {
+  children?: React.ReactNode;
+}) => {
   return (
     <>
-      <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
+      <DesktopSidebar {...props}>{children}</DesktopSidebar>
+      <MobileSidebar>{children}</MobileSidebar>
     </>
   );
 };
 
+// ✅ DesktopSidebar uchun to‘liq to‘g‘rilangan versiya
 export const DesktopSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof motion.div>) => {
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) => {
   const { open, setOpen, animate } = useSidebar();
   return (
     <motion.div
@@ -100,13 +110,9 @@ export const DesktopSidebar = ({
       onMouseLeave={() => setOpen(false)}
       {...props}
     >
-      {/* ✅ LOGO qo‘shildi */}
+      {/* ✅ LOGO */}
       <Link to="/" className="flex items-center justify-center mb-6">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          className="w-10 h-10 object-contain"
-        />
+        <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
         {open && (
           <span className="ml-2 text-white text-lg font-bold whitespace-nowrap">
             Arx dexium
@@ -114,18 +120,21 @@ export const DesktopSidebar = ({
         )}
       </Link>
 
-      {/* Sidebar tarkibi */}
-      <div className="flex flex-col gap-2">{children}</div>
+      {/* ✅ children null bo‘lishi mumkinligini tekshiramiz */}
+      {children && <div className="flex flex-col gap-2">{children}</div>}
     </motion.div>
   );
 };
 
-
+// ✅ MobileSidebar uchun to‘g‘rilangan versiya
 export const MobileSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<"div">) => {
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) => {
   const { open, setOpen } = useSidebar();
   return (
     <>
@@ -135,20 +144,15 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        {/* Logo - chap tomonda */}
-       <Link to="/" className="flex items-center gap-2">
-      {/* Logo rasm */}
-      <img 
-        src={'/logo.png'} 
-        alt="Logo" 
-        className="w-10 h-10 object-contain" // o‘lchamini shu yerda boshqarasiz
-      />
-      
-      {/* Logo yonidagi matn (ixtiyoriy) */}
-      <span className="text-white text-xl font-bold">Arx dexium</span>
-    </Link>
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src={"/logo.png"}
+            alt="Logo"
+            className="w-10 h-10 object-contain"
+          />
+          <span className="text-white text-xl font-bold">Arx dexium</span>
+        </Link>
 
-        {/* Menu button - o'ng tomonda */}
         <div className="flex justify-end z-20">
           <Menu
             className="text-white cursor-pointer"
@@ -163,28 +167,23 @@ export const MobileSidebar = ({
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className={cn(
                 "fixed h-full w-full inset-0 bg-neutral-900 p-6 z-[100] flex flex-col",
                 className
               )}
             >
-              {/* Header - Logo va X button */}
               <div className="flex items-center justify-between mb-8">
-                 <Link to="/" className="flex items-center gap-2">
-      {/* Logo rasm */}
-      <img 
-        src={'/logo.png'} 
-        alt="Logo" 
-        className="w-10 h-10 object-contain" // o‘lchamini shu yerda boshqarasiz
-      />
-      
-      {/* Logo yonidagi matn (ixtiyoriy) */}
-      <span className="text-white text-xl font-bold">Arx dexium</span>
-    </Link>
+                <Link to="/" className="flex items-center gap-2">
+                  <img
+                    src={"/logo.png"}
+                    alt="Logo"
+                    className="w-10 h-10 object-contain"
+                  />
+                  <span className="text-white text-xl font-bold">
+                    Arx dexium
+                  </span>
+                </Link>
                 <div
                   className="text-white cursor-pointer"
                   onClick={() => setOpen(false)}
@@ -193,12 +192,8 @@ export const MobileSidebar = ({
                 </div>
               </div>
 
-              {/* Main content - Links */}
-              <div className="flex-1 overflow-y-auto">
-                {children}
-              </div>
+              <div className="flex-1 overflow-y-auto">{children}</div>
 
-              {/* Footer - Contact info */}
               <div className="mt-auto pt-6 border-t border-neutral-700">
                 <p className="text-neutral-400 text-sm text-center mb-2">
                   Buyurtma berish uchun
@@ -219,6 +214,7 @@ export const MobileSidebar = ({
   );
 };
 
+// ✅ SidebarLink xatosiz ishlaydi
 export const SidebarLink = ({
   link,
   className,
@@ -232,7 +228,6 @@ export const SidebarLink = ({
     <Link
       to={link.href}
       onClick={() => {
-        // Mobile da link bosilganda sidebar yopiladi
         if (window.innerWidth < 768) {
           setOpen(false);
         }
@@ -246,8 +241,10 @@ export const SidebarLink = ({
       {link.icon}
       <motion.span
         animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        style={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
         }}
         className="text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
