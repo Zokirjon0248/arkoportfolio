@@ -1,20 +1,38 @@
-"use client";
+import { FaTelegram, FaInstagram, FaPhone } from 'react-icons/fa';
+import React, { useState } from "react";
 
-import React, { useState, useRef, useEffect } from "react";
-import {
-  Send,
-  User,
-  Phone,
-  MessageSquare,
-  CheckCircle2,
-  Instagram,
-} from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+interface SocialIconProps {
+  Icon: React.ElementType;
+  href: string;
+  label: string;
+  hoverGradient: string;
+}
 
-gsap.registerPlugin(ScrollTrigger);
+const SocialIcon: React.FC<SocialIconProps> = ({ Icon, href, label, hoverGradient }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: isHovered ? hoverGradient : 'linear-gradient(to right, #d97706, #ea580c, #dc2626)'
+      }}
+      className="group relative inline-block p-3 rounded-full text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg"
+      aria-label={label}
+    >
+      <Icon className="text-2xl group-hover:animate-pulse" />
+      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        {label}
+      </span>
+    </a>
+  );
+};
 
-export default function Contact() {
+const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -23,47 +41,11 @@ export default function Contact() {
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isLoading, setIsLoading] = useState(false);
 
-  const infoRef = useRef<HTMLDivElement | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null);
-
- useEffect(() => {
-  const ctx = gsap.context(() => {
-    // Chap qism (kontaktlar)
-    gsap.fromTo(
-      infoRef.current,
-      { opacity: 0, x: -50 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: infoRef.current,
-          start: "top 85%",
-        },
-      }
-    );
-
-    // O‘ng qism (forma)
-    gsap.fromTo(
-      formRef.current,
-      { opacity: 0, x: 50 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: "top 85%",
-        },
-      }
-    );
-  });
-
-  return () => ctx.revert();
-}, []);
-
+  const socialLinks = [
+    { Icon: FaTelegram, href: 'https://t.me/arxdexium', label: 'Telegram', hoverGradient: 'linear-gradient(to right, #60a5fa, #2563eb)' },
+    { Icon: FaInstagram, href: 'https://www.instagram.com/arx_dexium', label: 'Instagram', hoverGradient: 'linear-gradient(to right, #7c3aed, #db2777, #b91c1c)' },
+    { Icon: FaPhone, href: 'tel:+998993474703', label: 'Telefon: +998 99 347 47 03', hoverGradient: 'linear-gradient(to right, #4ade80, #16a34a)' },
+  ];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -110,137 +92,80 @@ ${formData.message}
       } else {
         setStatus({
           type: "error",
-          message: "Telegram API xatosi. Qayta urinib ko‘ring.",
+          message: "Telegram API xatosi. Qayta urinib ko'ring.",
         });
       }
     } catch (error) {
       setStatus({
         type: "error",
-        message: "Xatolik yuz berdi. Internetni tekshirib qayta urinib ko‘ring.",
+        message: "Xatolik yuz berdi. Internetni tekshirib qayta urinib ko'ring.",
       });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (formData.name && formData.phone && formData.message) sendToTelegram();
   };
 
   return (
-    <section className="min-h-screen text-white flex items-center justify-center px-4 py-10 sm:py-16">
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Chap tomon */}
-        <div ref={infoRef} className="flex flex-col justify-center space-y-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent pb-4">
-              Biz bilan bog‘laning
-            </h1>
-            <p className="text-neutral-400 text-lg">
-              Savolingiz yoki taklifingiz bormi? Biz har doim yordam berishga tayyormiz!
-            </p>
-          </div>
-
-          <div className="space-y-5">
-            <a
-              href="https://t.me/arxdexium"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
-            >
-              <div className="p-3 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 rounded-xl">
-                <Send className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Telegram</h3>
-                <p className="text-neutral-400 text-sm">@arxdexium</p>
-              </div>
-            </a>
-
-            <a
-              href="https://www.instagram.com/arx_dexium"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
-            >
-              <div className="p-3 bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl">
-                <Instagram className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Instagram</h3>
-                <p className="text-neutral-400 text-sm">@arx_dexium</p>
-              </div>
-            </a>
-
-            <a
-              href="tel:+998993474703"
-              className="contact-link flex items-center gap-4 border border-neutral-800 rounded-2xl px-6 py-4 hover:border-orange-500 hover:bg-neutral-900/60 transition-all duration-300"
-            >
-              <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
-                <Phone className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Telefon</h3>
-                <p className="text-neutral-400 text-sm">+998 99 347 47 03</p>
-              </div>
-            </a>
-          </div>
+    <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl font-extrabold text-gray-100 sm:text-4xl mb-8">
+          Biz bilan bog'laning
+        </h2>
+        <p className="text-xl text-gray-300 mb-10">
+          Savolingiz yoki taklifingiz bormi? Biz har doim yordam berishga tayyormiz!
+        </p>
+        <div className="flex justify-center space-x-6 mb-12">
+          {socialLinks.map((link, index) => (
+            <SocialIcon key={index} {...link} />
+          ))}
         </div>
-
-        {/* Forma */}
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="border border-neutral-800 backdrop-blur-md rounded-3xl p-8 shadow-xl"
-        >
-          <h2 className="text-3xl font-bold mb-6">Xabar yuboring</h2>
-
-          <div className="space-y-5">
+        <div className="p-8 rounded-lg">
+          <h3 className="text-2xl font-bold text-gray-200 mb-4">
+            Xabar yuboring
+          </h3>
+          <p className="text-gray-300 mb-6">
+            Biz bilan bog'lanishdan tortinmang. Ijtimoiy tarmoqlarda yoki quyidagi forma orqali murojaat qiling.
+          </p>
+          <div className="space-y-4">
             <div>
-              <label className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <User className="w-4 h-4 text-amber-500" /> Ismingiz
-              </label>
               <input
+                type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Ismingiz"
-                className="w-full bg-neutral-800/50 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 outline-none transition-all"
+                className="w-full px-4 py-2 border border-purple-500/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 bg-transparent"
                 required
               />
             </div>
-
             <div>
-              <label className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <Phone className="w-4 h-4 text-green-500" /> Telefon raqamingiz
-              </label>
               <input
-                name="phone"
                 type="tel"
+                name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+998 90 123 45 67"
-                className="w-full bg-neutral-800/50 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none transition-all"
+                className="w-full px-4 py-2 border border-purple-500/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 bg-transparent"
                 required
               />
             </div>
-
             <div>
-              <label className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-red-500" /> Xabar
-              </label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={5}
                 placeholder="Xabaringizni yozing..."
-                className="w-full bg-neutral-800/50 border border-neutral-700 rounded-xl px-4 py-3 text-white resize-none focus:border-red-500 focus:ring-2 focus:ring-red-500/30 outline-none transition-all"
+                rows={4}
+                className="w-full px-4 py-2 border border-purple-500/30 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 bg-transparent"
                 required
-              />
+              ></textarea>
             </div>
-
+            
             {status.message && (
               <div
                 className={`p-4 rounded-xl text-sm flex items-center gap-2 ${
@@ -249,20 +174,22 @@ ${formData.message}
                     : "bg-red-500/10 text-red-400 border border-red-500/50"
                 }`}
               >
-                <CheckCircle2 className="w-5 h-5" /> {status.message}
+                {status.message}
               </div>
             )}
 
             <button
-              type="submit"
+              onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white font-bold py-4 rounded-xl mt-4 hover:scale-[1.02] transition-all duration-300 shadow-lg"
+              className="w-full bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white hover:text-black hover:bg-white hover:bg-none px-4 rounded-full font-bold py-4 mt-4 hover:scale-[1.02] transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Yuborilmoqda..." : "Yuborish"}
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default ContactSection;

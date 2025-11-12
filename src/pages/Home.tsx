@@ -18,12 +18,39 @@ export default function Home() {
   const navigate = useNavigate();
 
   const services = [
-    { icon: <Building2 className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Arxitektura loyihasi", description: "Zamonaviy va funksional binolar uchun to'liq arxitektura loyihalash xizmati" },
-    { icon: <PenTool className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Ichki dizayn", description: "Noyob va shaxsiy uslubdagi interer dizayn yechimlari" },
-    { icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />, title: "3D vizualizatsiya", description: "Loyihangizni hayotiy ko‘rinishda ko‘ring — fotorealistik render" },
-    { icon: <Ruler className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Konstruksiya nazorati", description: "Qurilish jarayonida professional nazorat va maslahat" },
-    { icon: <Palette className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Landshaft dizayni", description: "Tashqi maydonlarni go‘zal va ekologik jihatdan to‘g‘ri bezash" },
-    { icon: <Zap className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Ekologik loyihalar", description: "Energiya tejovchi va tabiatga mos zamonaviy yechimlar" },
+    {
+      icon: <Building2 className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "Arxitektura loyihasi",
+      description:
+        "Zamonaviy va funksional binolar uchun to'liq arxitektura loyihalash xizmati",
+    },
+    {
+      icon: <PenTool className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "Ichki dizayn",
+      description: "Noyob va shaxsiy uslubdagi interer dizayn yechimlari",
+    },
+    {
+      icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "3D vizualizatsiya",
+      description:
+        "Loyihangizni hayotiy ko‘rinishda ko‘ring — fotorealistik render",
+    },
+    {
+      icon: <Ruler className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "Konstruksiya nazorati",
+      description: "Qurilish jarayonida professional nazorat va maslahat",
+    },
+    {
+      icon: <Palette className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "Landshaft dizayni",
+      description:
+        "Tashqi maydonlarni go‘zal va ekologik jihatdan to‘g‘ri bezash",
+    },
+    {
+      icon: <Zap className="w-10 sm:w-12 h-10 sm:h-12" />,
+      title: "Ekologik loyihalar",
+      description: "Energiya tejovchi va tabiatga mos zamonaviy yechimlar",
+    },
   ];
 
   const stats = [
@@ -50,14 +77,22 @@ export default function Home() {
             </span>
           </h1>
           <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Innovatsion texnologiyalar, zamonaviy dizayn va kuchli jamoa — biz sizga ishonchli yechimlar taklif qilamiz.
+            Innovatsion texnologiyalar, zamonaviy dizayn va kuchli jamoa — biz
+            sizga ishonchli yechimlar taklif qilamiz.
           </p>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/portfolio")}
-            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-red-500/30 transition-all"
+            className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 
+             text-gray-200 
+             hover:text-black 
+             hover:bg-blue-50 hover:bg-none 
+             px-6 sm:px-8 md:px-10 py-3 sm:py-4 
+             rounded-full font-semibold text-base sm:text-lg 
+             shadow-lg hover:shadow-red-500/30 
+             transition-all "
           >
             Xizmatlarimiz
           </motion.button>
@@ -80,7 +115,9 @@ export default function Home() {
             </span>
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
-            Biz professional arxitektorlar va dizaynerlar jamoasimiz. Har bir loyihaga kreativlik, texnik bilim va mijoz ehtiyojlariga chuqur tushunish bilan yondashamiz.
+            Biz professional arxitektorlar va dizaynerlar jamoasimiz. Har bir
+            loyihaga kreativlik, texnik bilim va mijoz ehtiyojlariga chuqur
+            tushunish bilan yondashamiz.
           </p>
         </motion.div>
 
@@ -96,7 +133,11 @@ export default function Home() {
               className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl text-center border border-gray-700 hover:border-red-600 transition-all"
             >
               <h3 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
-                <CountUp end={stat.number} duration={2.5} suffix={stat.suffix} />
+                <CountUp
+                  end={stat.number}
+                  duration={2.5}
+                  suffix={stat.suffix}
+                />
               </h3>
               <p className="text-gray-400 text-sm sm:text-base">{stat.label}</p>
             </motion.div>
@@ -106,9 +147,21 @@ export default function Home() {
         {/* QIYMATLAR */}
         <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
           {[
-            { icon: <Lightbulb className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Innovatsiya", desc: "Har doim yangi texnologiyalar va yondashuvlarni qo‘llaymiz" },
-            { icon: <Users className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Jamoa ishi", desc: "Kuchli va professional jamoamiz bilan ishlash quvonch" },
-            { icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />, title: "Sifat", desc: "Har bir loyihada yuqori sifat va mijoz qoniqishi bizning maqsadimiz" },
+            {
+              icon: <Lightbulb className="w-10 sm:w-12 h-10 sm:h-12" />,
+              title: "Innovatsiya",
+              desc: "Har doim yangi texnologiyalar va yondashuvlarni qo‘llaymiz",
+            },
+            {
+              icon: <Users className="w-10 sm:w-12 h-10 sm:h-12" />,
+              title: "Jamoa ishi",
+              desc: "Kuchli va professional jamoamiz bilan ishlash quvonch",
+            },
+            {
+              icon: <Compass className="w-10 sm:w-12 h-10 sm:h-12" />,
+              title: "Sifat",
+              desc: "Har bir loyihada yuqori sifat va mijoz qoniqishi bizning maqsadimiz",
+            },
           ].map((v, i) => (
             <motion.div
               key={i}
@@ -118,7 +171,9 @@ export default function Home() {
               viewport={{ once: true }}
               className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-red-600 transition-all backdrop-blur-sm text-center"
             >
-              <div className="text-red-500 mb-3 sm:mb-4 flex justify-center">{v.icon}</div>
+              <div className="text-red-500 mb-3 sm:mb-4 flex justify-center">
+                {v.icon}
+              </div>
               <h3 className="text-xl sm:text-2xl font-bold mb-2">{v.title}</h3>
               <p className="text-gray-400 text-sm sm:text-base">{v.desc}</p>
             </motion.div>
@@ -142,7 +197,8 @@ export default function Home() {
             </span>
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
-            Arxitektura va dizayn sohasida keng qamrovli professional xizmatlar taklif etamiz
+            Arxitektura va dizayn sohasida keng qamrovli professional xizmatlar
+            taklif etamiz
           </p>
         </motion.div>
 
