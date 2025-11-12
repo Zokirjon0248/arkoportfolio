@@ -1,31 +1,14 @@
-import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
-import LightRays from '@/components/LightRays';
 import DotGrid from './components/DotGrid';
 import ScrollToTop from "@/components/ScrollToTop";
 import Header from './components/Header';
 export default function App() {
 ;
 
-  const [rayLength, setRayLength] = useState(1.2);
 
-  useEffect(() => {
-    function updateRayLength() {
-      if (window.innerWidth < 640) {
-        setRayLength(3.0); 
-      } else if (window.innerWidth < 1024) {
-        setRayLength(2); 
-      } else {
-        setRayLength(1.2); 
-      }
-    }
-    updateRayLength();
-    window.addEventListener('resize', updateRayLength);
-    return () => window.removeEventListener('resize', updateRayLength);
-  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -46,7 +29,7 @@ export default function App() {
         <DotGrid
           dotSize={8}
           gap={30}
-          baseColor="#5227FF"
+          baseColor="#fff"
           activeColor="#5227FF"
           proximity={80}
           shockRadius={150}
