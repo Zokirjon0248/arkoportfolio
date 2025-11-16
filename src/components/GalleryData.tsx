@@ -417,10 +417,12 @@ export const PortfolioDetail = ({ slug, onBack }: { slug: string; onBack: () => 
           
           {/* CTA */}
           <div className="mt-8 pt-8 border-t border-gray-700">
+            <a href="/contact">
             <p className="text-gray-400 mb-4">Sizga ham shunday loyiha kerakmi?</p>
             <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/50">
               Biz bilan bog'lanish
             </button>
+            </a>
           </div>
         </div>
       </div>

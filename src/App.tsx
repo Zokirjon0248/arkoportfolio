@@ -4,19 +4,19 @@ import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import ScrollToTop from "@/components/ScrollToTop";
 import Header from './components/Header';
-
+import DarkVeil from './components/DarkVeil';
 
 
 export default function App() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
-   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-20 w-72 h-72 bg-orange-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
-        </div>
+      {/* Background veil - to'liq ekran orqa fon */}
+      <div className="fixed inset-0 z-0 mt-10">
+        <DarkVeil />
+      </div>
+ 
+      {/* Header */}
       <Header />
-
-  
 
       {/* Main content */}
       <div className="md:ml-[60px] min-h-screen pt-16 md:pt-0 relative z-10">
