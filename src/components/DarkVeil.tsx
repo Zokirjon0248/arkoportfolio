@@ -93,6 +93,7 @@ export default function DarkVeil({
   resolutionScale = 1
 }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
+  
   useEffect(() => {
     const canvas = ref.current as HTMLCanvasElement;
     const parent = canvas.parentElement as HTMLElement;
@@ -152,5 +153,6 @@ export default function DarkVeil({
       window.removeEventListener('resize', resize);
     };
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+  
   return <canvas ref={ref} className="w-full h-full block" />;
 }
