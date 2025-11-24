@@ -65,7 +65,7 @@ export const portfolioData = [
     title: "Kichik joy – katta imkoniyat!",
     shortDescription: "Zamonaviy va funksional hojatxona",
     fullDescription: "Hojatxona dizayni haqida o'ylayotganda, uni oddiygina texnik xona deb o'ylamang. To'g'ri tanlangan ranglar, dekor va sanitariya jihozlari yordamida bu joyni zamonaviy makonga aylantirish mumkin.",
-    category: "Hojatxona",
+    category: "Sanuzel",
     date: "2024",
     images: ["/4.1.jpg", "/4.2.jpg", "/4.3.jpg", "/4.4.jpg"],
     tags: ["Hojatxona", "Kichik", "Optimal"],
@@ -190,7 +190,7 @@ export const portfolioData = [
     mainImage: "/11.1.jpg",
     title: "Mehmonxona — birinchi taassurot joyi",
     shortDescription: "Iliq va qulay mehmonxona",
-    fullDescription: "Mehmonxona — bu tashrif buyuruvchilar birinchi taassurotni hosil qiladigan joy. Shuning uchun har bir detal iliqlik, qulaylik va nafislik uyg'unligida yaratildi. Har bir mehmonga uydek iliq tuyg'u bag'ishlaydigan dizayn.",
+    fullDescription: "Mehmonxona — bu tashrif buyuruvchilar birinchi taassurotni hosil qiladigan joy. Shuning uchun har bir detal iliqlik, qulaylik va nafislik uyg'unligida yaratildi. Har bir mehmonga uydek iliq tuyg'u bag'ishlaydigan dizayn." ,
     category: "Mehmonxona",
     date: "2024",
     images: ["/11.1.jpg", "/11.2.jpg", "/11.3.jpg", "/11.4.jpg", "/11.5.jpg"],
@@ -201,7 +201,201 @@ export const portfolioData = [
       "Nafis detallar",
       "Qulay mebel"
     ]
-  }
+  },
+  {
+    id: "Neo-Classic yotoqxona — sokinlik va hashamat uyg‘unligi",
+    slug: "Neo-Classic yotoqxona — sokinlik va hashamat uyg‘unligi",
+    mainImage: "/12.1.jpg",
+    title: "Mukammal uyg‘unlikdagi yotoqxona dizayni",
+    shortDescription: "Sokin va estetik yotoqxona",
+    fullDescription:`Neo-classic yotoqxona — zamonaviylik va klassikaning eng nozik uyg‘unligi.
+Toza chiziqlar, yengil bezaklar va sokin ranglar xonaga hashamat bilan birga tinchlik baxsh etadi.
+Har bir detal — yorug'lik, tekstura va kompozitsiya — mukammallik uchun mo'ljallangan.` 
+   ,
+    category: "Yotoqxona",
+    date: "2024",
+    images: [" /12.1.jpg", "/12.2.jpg", "/12.3.jpg", "/12.4.jpg", "/12.5.jpg", "/12.6.jpg"],
+    tags: [
+  "Neo-Classic",
+  "Yotoqxona",
+  "Zamonaviy",
+  "Nafislik",
+  "Yengil atmosfera",
+  "Tinchlik",
+  "Hashamat"
+],
+   features: [
+  "Yumshoq va tarqoq yoritish",
+  "Panoramali deraza yechimlari",
+  "Past balandlikdagi minimalistik mebel",
+  "Ortopedik yotoq tizimi",
+  "Teksturali devor panellari",
+  "Tabiiy ranglar uyg‘unligi",
+  "Mukammal uyg‘unlashtirilgan dekor",
+  "Optimal makon planirovkasi"
+]
+
+  },
+{
+  id: "noodatiy-mehmonxona",
+  slug: "noodatiy-mehmonxona",
+  mainImage: "/13.5.jpg",
+  title: "Noodatiy mehmonxona interyeri — mehmonlar uchun unutilmas tajriba",
+  shortDescription: "Iliq, zamonaviy va o‘ziga xos mehmonxona dizayni",
+  fullDescription: `
+Noodatiy mehmonxona interyeri — mehmonlar uchun haqiqiy unutilmas tajriba.
+Bu makonda har bir detal kayfiyat yaratadi, har bir chiroq esa atmosferani shakllantiradi.
+Mehmonxonangiz endi shunchaki tunash joyi emas —  
+balki o‘ziga xos tajriba markazi bo‘lishi mumkin.
+
+Zamonaviy yoritish, teksturali devor panellari, yaxshi tanlangan mebel va iliq rang palitrasi mehmonlarda uydek hissiyot uyg‘otadi.
+Har bir burchak — professional dizaynning davomidir.
+`,
+  category: "Mehmonxona",
+  date: "2024",
+  images: ["/13.1.jpg", "/13.2.jpg", "/13.3.jpg", "/13.4.jpg", "/13.5.jpg", "/13.6.jpg"],
+  tags: [
+    "Mehmonxona",
+    "Iliq atmosfera",
+    "Zamonaviy dizayn",
+    "Qulaylik",
+    "Premium interyer",
+    "Estetik yondashuv"
+  ],
+  features: [
+    "Iliq va tarqoq yoritish tizimi",
+    "Mehmonlarga qulay mebel tanlovi",
+    "Teksturali devor panellari",
+    "Premium teksturalardan foydalanish",
+    "Ergonomik planirovka",
+    "Professional dekor uyg‘unligi",
+    "Mehmonlar uchun yoqimli atmosfera",
+    "Unutilmas vizual tajriba"
+  ]
+},
+{
+  id: "noodatiy-oshxona",
+  slug: "noodatiy-oshxona",
+  mainImage: "/14.1.jpg",
+  title: "Noodatiy oshxona interyeri — funksional va zamonaviy yechim",
+  shortDescription: "Estetik, qulay va innovatsion oshxona dizayni",
+  fullDescription: `
+Zamonaviy oshxona dizayni ✨
+Qulaylik, estetika va mukammallik bir makonda jam bo‘ldi.
+Bu oshxona — nafaqat taom tayyorlaydigan joy, balki ilhom, qulaylik va zamonaviylik
+uchun yaratilgan makon.
+
+Yengil rang palitrasi, ergonomik planirovka, sifatli materiallar va oqilona yoritish 
+har bir jarayonga yoqimli atmosfera yaratadi.
+Oshxona uydagi eng faol joy — biz uni maksimal funksional, zamonaviy va estetik qildik.
+`,
+  category: "Oshxona",
+  date: "2024",
+  images: ["/14.1.jpg", "/14.2.jpg", "/14.3.jpg", "/14.4.jpg", "/14.5.jpg"],
+  tags: [
+    "Oshxona",
+    "Zamonaviy",
+    "Funksional",
+    "Minimalizm",
+    "Quvvat tejamkor texnika",
+    "Estetik dizayn"
+  ],
+  features: [
+    "Ergonomik va qulay planirovka",
+    "Zamonaviy oshxona texnikalari integratsiyasi",
+    "Keng ish sathi",
+    "Oson tozalanadigan materiallar",
+    "Yorug'likning to‘g‘ri joylashuvi",
+    "Ko‘p funksiyali saqlash bo‘limlari",
+    "Minimalistik va chiroyli dizayn",
+    "Issiq va sovuq yoritish uyg‘unligi"
+  ]
+},
+{
+  id: "zamonaviy-sanuzel-noodatiy",
+  slug: "zamonaviy-sanuzel-noodatiy",
+  mainImage: "/15.1.jpg",
+  title: "Zamonaviy va noodatiy sanuzel — maksimal qulaylik va estetik uyg‘unlik",
+  shortDescription: "Toza, funksional va zamonaviy sanuzel dizayni",
+  fullDescription: `
+Zamonaviy sanuzel dizayni ✨  
+Qulaylik, gigiyena va estetika bir joyda jam bo‘lgan makon.
+
+Har bir detal — material tanlovidan tortib, yoritishgacha — qulaylikni oshirish uchun 
+o‘ylangan. Yengil ranglar, tabiiy yuzalar va ergonomik yechimlar sanuzelni yanada 
+yorqin, toza va keng his ettiradi.
+
+Bu sanuzel — nafaqat kundalik ehtiyojlar uchun joy, balki sokinlik va tozalik 
+muhitini taqdim etadigan makon. Zamonaviy jihozlar va optimal planirovka 
+har bir jarayonni osonlashtiradi.
+`,
+  category: "Sanuzel",
+  date: "2024",
+  images: ["/15.1.jpg", "/15.2.jpg", "/15.3.jpg", "/15.4.jpg", "/15.5.jpg"],
+  tags: [
+    "Sanuzel",
+    "Zamonaviy",
+    "Minimalistik",
+    "Toza dizayn",
+    "Gigiyena",
+    "Ergonomik yechim",
+    "Estetik atmosfera"
+  ],
+  features: [
+    "Sifatli va suvga chidamli materiallar",
+    "Optimal planirovka",
+    "Yengil va toza rang palitrasi",
+    "Yumshoq yoritish tizimi",
+    "Oson tozalanadigan yuzalar",
+    "Zamonaviy sanitariya jihozlari",
+    "Amaliy saqlash bo‘limlari",
+    "Ventilyasiyaning yaxshilangan tizimi"
+  ]
+},
+{
+  id: "zamonaviy-mehmonxona-noodatiy",
+  slug: "zamonaviy-mehmonxona-noodatiy",
+  mainImage: "/16.1.jpg",
+  title: "Zamonaviy va noodatiy mehmonxona — iliqlik, qulaylik va estetik uyg‘unlik",
+  shortDescription: "O‘ziga xos, zamonaviy va mehmonlarni hayratda qoldiradigan mehmonxona interyeri",
+  fullDescription: `
+Zamonaviy mehmonxona dizayni ✨  
+Iliq atmosfera, qulaylik va estetik uyg‘unlik birlashgan makon.
+
+Mehmonxona — uyning yuragi, mehmonlarni kutib olish va oila davrasida suhbat qurish
+uchun mo‘ljallangan joy. Shuning uchun har bir detal — yoritish, mebel, tekstura
+va joylashuv — maksimal qulaylikni ta’minlash uchun o‘ylangan.
+
+Yengil rang palitrasi, yumshoq yoritish, tabiatga yaqin materiallar va keng
+planirovka mehmonxonani yanada sokin, keng va yoqimli muhitga aylantiradi.
+
+Bu mehmonxona zamonaviylik bilan iliqlikning mukammal uyg‘unligi bo‘lib,
+har kuni sizni va mehmonlaringizni iliq kutib oladigan makon yaratadi.
+  `,
+  category: "Mehmonxona",
+  date: "2024",
+  images: ["/16.1.jpg", "/16.2.jpg", "/16.3.jpg", "/16.4.jpg"],
+  tags: [
+    "Mehmonxona",
+    "Zamonaviy dizayn",
+    "Iliq atmosfera",
+    "Minimalistik yondashuv",
+    "Estetik interyer",
+    "Yumshoq yoritish"
+  ],
+  features: [
+    "Keng va yorqin planirovka",
+    "Iliq ranglar uyg‘unligi",
+    "Yumshoq va funksional mebel tanlovi",
+    "Tabiiy materiallardan foydalanish",
+    "Dekor elementlarining uyg‘un joylashuvi",
+    "Ko‘p pog‘onali yoritish tizimi",
+    "Minimalistik lekin estetik dizayn",
+    "Mehmonlar uchun qulay va yoqimli atmosfera"
+  ]
+},
+
+
 ];
 
 // ============= PORTFOLIO GRID (List view) =============
