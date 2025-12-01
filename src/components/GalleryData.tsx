@@ -1,6 +1,7 @@
 // components/GalleryData.tsx
 import  { useState, useEffect } from "react";
 import {  ArrowLeft, Calendar, Tag } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // ============= DATA =============
 export const portfolioData = [
@@ -528,7 +529,7 @@ export const PortfolioDetail = ({ slug, onBack }: { slug: string; onBack: () => 
           <Calendar className="w-5 h-5 text-gray-400" />
           <span className="text-gray-400">{project.date}</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
+        <h1 className="text-4xl pb-2 md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
           {project.title}
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -611,12 +612,12 @@ export const PortfolioDetail = ({ slug, onBack }: { slug: string; onBack: () => 
           
           {/* CTA */}
           <div className="mt-8 pt-8 border-t border-gray-700">
-            <a href="/contact">
+            <Link to="/contact">
             <p className="text-gray-400 mb-4">Sizga ham shunday loyiha kerakmi?</p>
             <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/50">
               Biz bilan bog'lanish
             </button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
